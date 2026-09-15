@@ -1,0 +1,143 @@
+service: bomberos-f3-backend
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 10
+  # Cuenta AWS Academy/Vocareum: no se permite crear roles IAM propios.
+  # Se usa el rol LabRole que la cuenta ya trae preconfigurado.
+  iam:
+    role: arn:aws:iam::826584452803:role/LabRole
+
+functions:
+  listarCuentas:
+    handler: modulo_admin/handler.listar_cuentas
+    environment:
+      USER_POOL_ID: !Ref CognitoUserPool
+    events:
+      - http:
+          path: admin/cuentas
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId: !Ref ApiGatewayAuthorizer
+
+  cambiarPassword:
+    handler: modulo_admin/handler.cambiar_password
+    environment:
+      USER_POOL_ID: !Ref CognitoUserPool
+    events:
+      - http:
+          path: admin/cuentas/{id}/password
+          method: patch
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId: !Ref ApiGatewayAuthorizer
+
+resources:
+  Resources:
+
+    # ---------- Autorizador de API Gateway basado en Cognito ----------
+    ApiGatewayAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito-authorizer-${sls:stage}
+        Type: COGNITO_USER_POOLS
+        IdentitySource: method.request.header.Authorization
+        RestApiId: !Ref ApiGatewayRestApi
+        ProviderARNs:
+          - !GetAtt CognitoUserPool.Arn
+
+    # ---------- Cognito User Pool ----------
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: bomberos-f3-${sls:stage}
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireSymbols: false
+            RequireUppercase: true
+        Schema:
+          - Name: email
+            Required: false
+            Mutable: true
+          - Name: name
+            Required: false
+            Mutable: true
+
+    # ---------- App Client (lo usa el frontend de Sebastian) ----------
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: bomberos-f3-client-${sls:stage}
+        UserPoolId: !Ref CognitoUserPool
+        GenerateSecret: false
+        ExplicitAuthFlows:
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        AccessTokenValidity: 15
+        IdTokenValidity: 15
+        RefreshTokenValidity: 1
+        TokenValidityUnits:
+          AccessToken: minutes
+          IdToken: minutes
+          RefreshToken: days
+
+    # ---------- Grupos (roles) ----------
+    GroupJefatura:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        GroupName: Jefatura
+        UserPoolId: !Ref CognitoUserPool
+        Description: Acceso general a todas las secciones
+        Precedence: 1
+
+    GroupAdministracion:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        GroupName: Jefe_Administracion
+        UserPoolId: !Ref CognitoUserPool
+        Description: Jefe de seccion Administracion (lectura general de archivados)
+        Precedence: 2
+
+    GroupServicioGeneral:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        GroupName: Jefe_ServicioGeneral
+        UserPoolId: !Ref CognitoUserPool
+        Description: Jefe de seccion Servicio General
+        Precedence: 3
+
+    GroupMaquinas:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        GroupName: Jefe_Maquinas
+        UserPoolId: !Ref CognitoUserPool
+        Description: Jefe de seccion Maquinas
+        Precedence: 3
+
+    GroupSanidad:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        GroupName: Jefe_Sanidad
+        UserPoolId: !Ref CognitoUserPool
+        Description: Jefe de seccion Sanidad
+        Precedence: 3
+
+  Outputs:
+    UserPoolId:
+      Value: !Ref CognitoUserPool
+      Export:
+        Name: bomberos-f3-${sls:stage}-user-pool-id
+    UserPoolClientId:
+      Value: !Ref CognitoUserPoolClient
+      Export:
+        Name: bomberos-f3-${sls:stage}-user-pool-client-id
