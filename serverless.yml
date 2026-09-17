@@ -7,8 +7,6 @@ provider:
   stage: ${opt:stage, 'dev'}
   memorySize: 256
   timeout: 10
-  # Cuenta AWS Academy/Vocareum: no se permite crear roles IAM propios.
-  # Se usa el rol LabRole que la cuenta ya trae preconfigurado.
   iam:
     role: arn:aws:iam::826584452803:role/LabRole
 
@@ -73,7 +71,7 @@ resources:
             Required: false
             Mutable: true
 
-    # ---------- App Client (lo usa el frontend de Sebastian) ----------
+    # ---------- App Client ----------
     CognitoUserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
