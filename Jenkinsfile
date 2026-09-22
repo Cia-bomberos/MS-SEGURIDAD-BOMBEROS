@@ -123,7 +123,7 @@ pipeline {
 
 // Función que ejecuta exactamente los pasos de tu GitHub Actions dentro de un contenedor Node.js
 def executeServerlessDeploy(String targetStage) {
-    docker.image('node:20-alpine').inside {
+    docker.image('node:20').inside {
         withEnv([
             "AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID}",
             "AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY}",
