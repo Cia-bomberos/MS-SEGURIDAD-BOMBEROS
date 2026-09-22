@@ -45,7 +45,7 @@ jobs:
           node-version: '20'
 
       - name: Instalar Serverless Framework
-        run: npm install -g serverless
+        run: npm install -g serverless@3
 
       - name: Instalar dependencias Python (si tenés requirements.txt)
         run: |
