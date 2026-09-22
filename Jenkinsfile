@@ -8,10 +8,11 @@ pipeline {
         skipDefaultCheckout(true)
     }
 
+    // Parámetros para ingresar las credenciales dinámicas de AWS Learner Lab
     parameters {
         string(name: 'AWS_ACCESS_KEY_ID', defaultValue: '', description: 'Access Key de AWS Learner Lab')
         password(name: 'AWS_SECRET_ACCESS_KEY', defaultValue: '', description: 'Secret Access Key de AWS Learner Lab')
-        password(name: 'AWS_SESSION_TOKEN', defaultValue: '', description: 'Session Token de AWS Learner Lab (Obligatorio en Learner Lab)')
+        password(name: 'AWS_SESSION_TOKEN', defaultValue: '', description: 'Session Token de AWS Learner Lab')
     }
 
     stages {
@@ -88,39 +89,41 @@ pipeline {
             }
         }
 
+        // --- STAGES DE DEPLOY TRADUCIDOS DESDE TU DEPLOY.YML ---
+
         stage('Deploy Dev') {
             when { branch 'development' }
             steps {
-                deployServerless('dev')
+                executeServerlessDeploy('dev')
             }
         }
 
         stage('Deploy QA') {
             when { branch 'qa' }
             steps {
-                deployServerless('qa')
+                executeServerlessDeploy('qa')
             }
         }
 
         stage('Deploy UAT') {
             when { branch 'uat' }
             steps {
-                deployServerless('uat')
+                executeServerlessDeploy('uat')
             }
         }
 
         stage('Deploy Prod') {
             when { branch 'main' }
             steps {
-                deployServerless('prod')
+                executeServerlessDeploy('prod')
             }
         }
     }
 }
 
-// Función auxiliar para realizar el deploy instalando Serverless en el contenedor Node
-def deployServerless(String targetStage) {
-    docker.image('node:24-alpine').inside {
+// Función que ejecuta exactamente los pasos de tu GitHub Actions dentro de un contenedor Node.js
+def executeServerlessDeploy(String targetStage) {
+    docker.image('node:20-alpine').inside {
         withEnv([
             "AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID}",
             "AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY}",
@@ -128,8 +131,8 @@ def deployServerless(String targetStage) {
             "AWS_DEFAULT_REGION=us-east-1"
         ]) {
             sh """
-                npm install -g serverless
-                serverless deploy --stage ${targetStage}
+                npm install -g serverless@3
+                serverless deploy --stage ${targetStage} --verbose
             """
         }
     }
