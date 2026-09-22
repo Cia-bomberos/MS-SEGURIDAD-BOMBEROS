@@ -128,7 +128,9 @@ def executeServerlessDeploy(String targetStage) {
             "AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID}",
             "AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY}",
             "AWS_SESSION_TOKEN=${params.AWS_SESSION_TOKEN}",
-            "AWS_DEFAULT_REGION=us-east-1"
+            "AWS_DEFAULT_REGION=us-east-1",
+            "NPM_CONFIG_PREFIX=${env.WORKSPACE}/.npm-global",
+            "PATH=${env.WORKSPACE}/.npm-global/bin:${env.PATH}"
         ]) {
             sh """
                 npm install -g serverless@3
