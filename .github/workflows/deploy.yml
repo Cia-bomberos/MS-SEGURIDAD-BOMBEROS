@@ -1,0 +1,65 @@
+name: Deploy Serverless
+
+on:
+  push:
+    branches:
+      - development
+      - qa
+      - uat
+      - main
+
+# Evita que dos deploys a la misma branch corran en paralelo
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determinar stage según la branch
+        id: vars
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            development) STAGE=dev ;;
+            qa)          STAGE=qa ;;
+            uat)         STAGE=uat ;;
+            main)        STAGE=prod ;;
+            *)           STAGE=dev ;;
+          esac
+          echo "STAGE=$STAGE" >> "$GITHUB_ENV"
+          echo "stage=$STAGE" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node (para Serverless Framework)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar Serverless Framework
+        run: npm install -g serverless@3
+
+      - name: Instalar dependencias Python (si tenés requirements.txt)
+        run: |
+          if [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt -t .
+          fi
+
+      - name: Configurar credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Deploy
+        run: serverless deploy --stage ${{ env.STAGE }} --verbose
