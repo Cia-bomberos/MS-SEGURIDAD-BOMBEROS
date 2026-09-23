@@ -25,13 +25,13 @@ pipeline {
         stage('Test & Coverage (Python)') {
             agent {
                 docker {
-                    image 'python:3.12-alpine'
+                    image 'python:3.12-slim'
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    python3 -m venv venv
+                    python -m venv venv
                     . venv/bin/activate
                     pip install --no-cache-dir -r requirements-dev.txt
                     pytest tests/ \
@@ -92,30 +92,67 @@ pipeline {
         // --- STAGES DE DEPLOY TRADUCIDOS DESDE TU DEPLOY.YML ---
 
         stage('Deploy Dev') {
-            when { branch 'development' }
+            when {
+                allOf {
+                    branch 'development'
+                    expression { params.AWS_ACCESS_KEY_ID?.trim() }
+                }
+            }
             steps {
                 executeServerlessDeploy('dev')
             }
         }
 
         stage('Deploy QA') {
-            when { branch 'qa' }
+            when {
+                allOf {
+                    branch 'qa'
+                    expression { params.AWS_ACCESS_KEY_ID?.trim() }
+                }
+            }
             steps {
                 executeServerlessDeploy('qa')
             }
         }
 
         stage('Deploy UAT') {
-            when { branch 'uat' }
+            when {
+                allOf {
+                    branch 'uat'
+                    expression { params.AWS_ACCESS_KEY_ID?.trim() }
+                }
+            }
             steps {
                 executeServerlessDeploy('uat')
             }
         }
 
         stage('Deploy Prod') {
-            when { branch 'main' }
+            when {
+                allOf {
+                    branch 'main'
+                    expression { params.AWS_ACCESS_KEY_ID?.trim() }
+                }
+            }
             steps {
                 executeServerlessDeploy('prod')
+            }
+        }
+
+        stage('Deploy omitido (sin credenciales)') {
+            when {
+                allOf {
+                    anyOf {
+                        branch 'development'
+                        branch 'qa'
+                        branch 'uat'
+                        branch 'main'
+                    }
+                    expression { !params.AWS_ACCESS_KEY_ID?.trim() }
+                }
+            }
+            steps {
+                echo '⚠️  No se pasaron credenciales de AWS (build automático). Deploy omitido. Para deployar, corré "Build with Parameters" con las credenciales frescas del Learner Lab.'
             }
         }
     }

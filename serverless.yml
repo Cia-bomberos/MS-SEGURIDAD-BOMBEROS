@@ -8,7 +8,7 @@ provider:
   memorySize: 256
   timeout: 10
   iam:
-    role: arn:aws:iam::${aws:accountId}:role/LabRole
+    role: arn:aws:iam::*:role/LabRole
 
 functions:
   listarCuentas:
