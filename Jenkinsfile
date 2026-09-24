@@ -65,7 +65,7 @@ pipeline {
 
                     withEnv(["SONAR_USER_HOME=${sonarUserHome}"]) {
                         def projectKey = "BE-BOMBEROS-${env.BRANCH_NAME.toUpperCase()}"
-                        def projectName = "MS-DOCUMENTOS-BOMBEROS-(${env.BRANCH_NAME.toUpperCase()})"
+                        def projectName = "MS-SEGURIDAD-BOMBEROS-(${env.BRANCH_NAME.toUpperCase()})"
                         
                         withSonarQubeEnv('SonarQube-Server') {
                             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${projectKey} -Dsonar.projectName='${projectName}' -Dsonar.userHome=${sonarUserHome}"
