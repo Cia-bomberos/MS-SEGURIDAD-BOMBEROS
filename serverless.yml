@@ -7,8 +7,13 @@ provider:
   stage: ${opt:stage, 'dev'}
   memorySize: 256
   timeout: 10
+
+  apiGateway:
+    restApiId: ge4f5nxew8
+    restApiRootResourceId: 7jswva2jya
+
   iam:
-    role: arn:aws:iam::*:role/LabRole
+    role: arn:aws:iam::${AWS::AccountId}:role/LabRole
 
 functions:
   listarCuentas:
@@ -47,7 +52,7 @@ resources:
         Name: cognito-authorizer-${sls:stage}
         Type: COGNITO_USER_POOLS
         IdentitySource: method.request.header.Authorization
-        RestApiId: !Ref ApiGatewayRestApi
+        RestApiId: ge4f5nxew8
         ProviderARNs:
           - !GetAtt CognitoUserPool.Arn
 
