@@ -53,7 +53,7 @@ resources:
         Name: cognito-authorizer-${sls:stage}
         Type: COGNITO_USER_POOLS
         IdentitySource: method.request.header.Authorization
-        RestApiId: ge4f5nxew8
+        RestApiId: ${self:provider.apiGateway.restApiId}
         ProviderARNs:
           - !GetAtt CognitoUserPool.Arn
 
