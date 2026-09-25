@@ -1,14 +1,16 @@
 service: bomberos-f3-backend
+frameworkVersion: '^3.40.0'
 
 provider:
   name: aws
-  runtime: python3.12
+  runtime: python3.11
   region: us-east-1
   stage: ${opt:stage, 'dev'}
   memorySize: 256
   timeout: 10
   iam:
-    role: arn:aws:iam::*:role/LabRole
+    role:
+      Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/LabRole
 
 functions:
   listarCuentas:
