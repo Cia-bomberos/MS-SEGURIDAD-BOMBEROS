@@ -14,7 +14,8 @@ provider:
     restApiRootResourceId: 7jswva2jya
 
   iam:
-    role: arn:aws:iam::${AWS::AccountId}:role/LabRole
+    role: 
+      Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/LabRole
 
 functions:
   listarCuentas:
