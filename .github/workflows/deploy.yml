@@ -63,3 +63,38 @@ jobs:
 
       - name: Deploy
         run: serverless deploy --stage ${{ env.STAGE }} --verbose
+
+      - name: Instalar dependencias para scripts
+        run: pip install boto3
+
+      - name: Obtener IDs de AWS y Publicar Configuración JSON a S3
+        run: | 
+          USER_POOL_ID=$(aws cloudformation describe-stacks \
+            --stack-name bomberos-f3-backend-${{ env.STAGE }} \
+            --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" \
+            --output text)
+          
+          CLIENT_ID=$(aws cloudformation describe-stacks \
+            --stack-name bomberos-f3-backend-${{ env.STAGE }} \
+            --query "Stacks[0].Outputs[?OutputKey=='UserPoolClientId'].OutputValue" \
+            --output text)
+
+          API_URL=$(aws cloudformation describe-stacks \
+            --stack-name bomberos-f3-backend-${{ env.STAGE }} \
+            --query "Stacks[0].Outputs[?OutputKey=='ServiceEndpoint'].OutputValue" \
+            --output text)
+
+          python scripts/seed_users.py --stage ${{ env.STAGE }} --user-pool-id "$USER_POOL_ID"
+
+          cat <<EOF > config.json
+          {
+            "stage": "${{ env.STAGE }}",
+            "userPoolId": "$USER_POOL_ID",
+            "clientId": "$CLIENT_ID",
+            "apiUrl": "$API_URL"
+          }
+          EOF
+
+          aws s3 cp config.json s3://bomberos-config-${{ env.STAGE }}/config.json \
+            --content-type "application/json" \
+            --cache-control "no-cache, no-store, must-revalidate"
