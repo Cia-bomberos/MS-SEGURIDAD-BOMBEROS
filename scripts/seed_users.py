@@ -9,6 +9,7 @@ Uso:
     python scripts/seed_users.py --stage dev --user-pool-id us-east-1_XXXXXXXXX
 """
 
+import os
 import argparse
 import boto3
 from botocore.exceptions import ClientError
@@ -88,11 +89,13 @@ def crear_usuario(client, user_pool_id: str, usuario: dict) -> None:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", required=True, choices=["dev", "test", "prod"])
+    parser.add_argument("--stage", required=True, choices=["dev", "qa", "uat", "prod"])    
     parser.add_argument("--user-pool-id", required=True)
+    parser.add_argument("--autoconfirm", action="store_true", help="Omitir confirmacion interactiva")
     args = parser.parse_args()
 
-    if args.stage == "prod":
+    is_ci = os.getenv("GITHUB_ACTIONS") == "true"
+    if args.stage == "prod" and not args.autoconfirm and not is_ci:
         confirmacion = input(
             "Vas a sembrar usuarios en PRODUCCION. Escribe 'confirmar' para continuar: "
         )

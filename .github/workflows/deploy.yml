@@ -63,3 +63,15 @@ jobs:
 
       - name: Deploy
         run: serverless deploy --stage ${{ env.STAGE }} --verbose
+
+      - name: Instalar dependencias para scripts
+        run: pip install boto3
+
+      - name: Obtener UserPoolId desde CloudFormation y Ejecutar Seed Users
+        run: | 
+          USER_POOL_ID=$(aws cloudformation describe-stacks \
+            --stack-name bomberos-f3-backend-${{ env.STAGE }} \
+            --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" \
+            --output text)
+          echo "Ejecutando seed_users.py para el UserPool: $USER_POOL_ID"
+          python scripts/seed_users.py --stage ${{ env.STAGE }} --user-pool-id $USER_POOL_ID
