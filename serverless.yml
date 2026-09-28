@@ -165,4 +165,3 @@ resources:
         Name: bomberos-f3-${sls:stage}-user-pool-client-id
     ConfigBucketName:
       Value: !Ref ConfigBucket
-      OutputKey: ConfigBucketName
