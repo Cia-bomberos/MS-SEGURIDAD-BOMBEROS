@@ -229,3 +229,160 @@ class TestCambiarPassword:
         resp = handler.cambiar_password(event, None)
 
         assert resp["statusCode"] == 500
+
+
+# ---------------------------------------------------------------------------
+# Politica de contrasena
+# ---------------------------------------------------------------------------
+
+class TestPoliticaPassword:
+    @pytest.mark.parametrize("password", ["abcdefgh1", "ABCDEFGH1", "Abcdefgh", "Ab1"])
+    def test_cambiar_password_rechaza_las_que_no_cumplen_la_politica(self, cognito_mock, password):
+        event = _event(grupos="Jefatura", path_params={"id": "sanidad"}, body={"nueva_password": password})
+        assert handler.cambiar_password(event, None)["statusCode"] == 400
+        cognito_mock.admin_set_user_password.assert_not_called()
+
+    def test_cognito_rechaza_la_password_devuelve_400_no_500(self, cognito_mock):
+        cognito_mock.admin_list_groups_for_user.return_value = {"Groups": [{"GroupName": "Jefe_Sanidad"}]}
+        cognito_mock.admin_set_user_password.side_effect = _client_error("InvalidPasswordException")
+        event = _event(grupos="Jefatura", path_params={"id": "sanidad"}, body={"nueva_password": "NuevaClave123"})
+        assert handler.cambiar_password(event, None)["statusCode"] == 400
+
+
+# ---------------------------------------------------------------------------
+# PATCH /admin/cuentas/{id}/username -> cambiar_username
+# ---------------------------------------------------------------------------
+
+BODY = {"nuevo_username": "sanidad.jefe", "nueva_password": "NuevaClave123"}
+
+
+def _evento(grupos="Jefatura", actual="sanidad", body=BODY):
+    return _event(grupos=grupos, path_params={"id": actual}, body=body)
+
+
+@pytest.fixture
+def cuenta_sanidad(cognito_mock):
+    """La cuenta 'sanidad' existe, es de Jefe_Sanidad y el usuario nuevo esta libre."""
+    cognito_mock.admin_list_groups_for_user.return_value = {"Groups": [{"GroupName": "Jefe_Sanidad"}]}
+
+    def _get(UserPoolId, Username):
+        if Username == "sanidad":
+            return {"UserAttributes": [
+                {"Name": "sub", "Value": "abc"}, {"Name": "name", "Value": "Jefe de Sanidad"},
+                {"Name": "email", "Value": "san@cia.pe"}, {"Name": "email_verified", "Value": "true"},
+            ]}
+        raise _client_error("UserNotFoundException")
+
+    cognito_mock.admin_get_user.side_effect = _get
+    return cognito_mock
+
+
+class TestCambiarUsername:
+    def test_rechaza_si_no_es_jefatura(self, cognito_mock):
+        for grupo in ("Jefe_Sanidad", "Jefe_Administracion", ""):
+            assert handler.cambiar_username(_evento(grupos=grupo), None)["statusCode"] == 403
+        cognito_mock.admin_create_user.assert_not_called()
+
+    @pytest.mark.parametrize("nuevo", ["", "ab", "Sanidad", "con espacio", "a" * 31, "-guion", "ñandu", None])
+    def test_usuario_nuevo_invalido_400(self, cognito_mock, nuevo):
+        r = handler.cambiar_username(_evento(body={"nuevo_username": nuevo, "nueva_password": "NuevaClave123"}), None)
+        assert r["statusCode"] == 400
+        cognito_mock.admin_create_user.assert_not_called()
+
+    def test_misma_cuenta_400(self, cognito_mock):
+        r = handler.cambiar_username(_evento(body={"nuevo_username": "sanidad", "nueva_password": "NuevaClave123"}), None)
+        assert r["statusCode"] == 400
+
+    @pytest.mark.parametrize("password", [None, "", "corta1A", "sinmayuscula1", "SINMINUSCULA1", "SinNumeros"])
+    def test_la_contrasena_es_obligatoria_y_valida(self, cognito_mock, password):
+        r = handler.cambiar_username(_evento(body={"nuevo_username": "otro.usuario", "nueva_password": password}), None)
+        assert r["statusCode"] == 400
+        cognito_mock.admin_create_user.assert_not_called()
+
+    def test_cuerpo_no_json_400(self, cognito_mock):
+        ev = _event(grupos="Jefatura", path_params={"id": "sanidad"})
+        ev["body"] = "{no json"
+        assert handler.cambiar_username(ev, None)["statusCode"] == 400
+
+    def test_cuenta_inexistente_404(self, cognito_mock):
+        cognito_mock.admin_list_groups_for_user.side_effect = _client_error("UserNotFoundException")
+        assert handler.cambiar_username(_evento(actual="fantasma"), None)["statusCode"] == 404
+        cognito_mock.admin_create_user.assert_not_called()
+
+    def test_no_se_puede_renombrar_a_jefatura_rn0043(self, cognito_mock):
+        cognito_mock.admin_list_groups_for_user.return_value = {"Groups": [{"GroupName": "Jefatura"}]}
+        assert handler.cambiar_username(_evento(actual="jefatura"), None)["statusCode"] == 403
+        cognito_mock.admin_create_user.assert_not_called()
+        cognito_mock.admin_delete_user.assert_not_called()
+
+    def test_grupo_no_administrable_403(self, cognito_mock):
+        cognito_mock.admin_list_groups_for_user.return_value = {"Groups": [{"GroupName": "Otro"}]}
+        assert handler.cambiar_username(_evento(actual="raro"), None)["statusCode"] == 403
+
+    def test_usuario_nuevo_ya_existe_409_sin_tocar_nada(self, cuenta_sanidad):
+        cuenta_sanidad.admin_get_user.side_effect = None
+        cuenta_sanidad.admin_get_user.return_value = {"UserAttributes": []}
+        assert handler.cambiar_username(_evento(), None)["statusCode"] == 409
+        cuenta_sanidad.admin_create_user.assert_not_called()
+        cuenta_sanidad.admin_delete_user.assert_not_called()
+
+    def test_renombra_creando_la_nueva_y_eliminando_la_anterior(self, cuenta_sanidad):
+        r = handler.cambiar_username(_evento(), None)
+        assert r["statusCode"] == 200
+        body = json.loads(r["body"])
+        assert (body["username_anterior"], body["username_nuevo"]) == ("sanidad", "sanidad.jefe")
+
+        crear = cuenta_sanidad.admin_create_user.call_args.kwargs
+        assert crear["Username"] == "sanidad.jefe"
+        assert crear["MessageAction"] == "SUPPRESS"
+        # copia el nombre y el correo, pero no el sub ni email_verified
+        assert {a["Name"] for a in crear["UserAttributes"]} == {"name", "email"}
+        cuenta_sanidad.admin_set_user_password.assert_called_once_with(
+            UserPoolId=handler.USER_POOL_ID, Username="sanidad.jefe", Password="NuevaClave123", Permanent=True)
+        cuenta_sanidad.admin_add_user_to_group.assert_called_once_with(
+            UserPoolId=handler.USER_POOL_ID, Username="sanidad.jefe", GroupName="Jefe_Sanidad")
+        cuenta_sanidad.admin_delete_user.assert_called_once_with(UserPoolId=handler.USER_POOL_ID, Username="sanidad")
+
+    def test_la_anterior_se_elimina_solo_al_final(self, cuenta_sanidad):
+        orden = []
+        for nombre in ("admin_create_user", "admin_set_user_password", "admin_add_user_to_group", "admin_delete_user"):
+            getattr(cuenta_sanidad, nombre).side_effect = lambda *a, _n=nombre, **k: orden.append(_n)
+        handler.cambiar_username(_evento(), None)
+        assert orden == ["admin_create_user", "admin_set_user_password", "admin_add_user_to_group", "admin_delete_user"]
+
+    @pytest.mark.parametrize("falla", ["admin_create_user", "admin_set_user_password", "admin_add_user_to_group"])
+    def test_si_falla_la_creacion_se_descarta_la_nueva_y_no_se_toca_la_anterior(self, cuenta_sanidad, falla):
+        getattr(cuenta_sanidad, falla).side_effect = _client_error("InternalErrorException")
+        r = handler.cambiar_username(_evento(), None)
+        assert r["statusCode"] == 500
+        borrados = [c.kwargs["Username"] for c in cuenta_sanidad.admin_delete_user.call_args_list]
+        assert borrados == ["sanidad.jefe"]  # solo la nueva; "sanidad" sigue intacta
+
+    def test_si_falla_el_borrado_de_la_anterior_se_deshace_la_nueva(self, cuenta_sanidad):
+        def _borra(UserPoolId, Username):
+            if Username == "sanidad":
+                raise _client_error("InternalErrorException")
+
+        cuenta_sanidad.admin_delete_user.side_effect = _borra
+        assert handler.cambiar_username(_evento(), None)["statusCode"] == 500
+        borrados = [c.kwargs["Username"] for c in cuenta_sanidad.admin_delete_user.call_args_list]
+        assert borrados == ["sanidad", "sanidad.jefe"]
+
+    def test_un_fallo_al_descartar_no_tapa_el_error_original(self, cuenta_sanidad):
+        cuenta_sanidad.admin_create_user.side_effect = _client_error("InternalErrorException", "original")
+        cuenta_sanidad.admin_delete_user.side_effect = _client_error("InternalErrorException", "secundario")
+        r = handler.cambiar_username(_evento(), None)
+        assert r["statusCode"] == 500 and "original" in json.loads(r["body"])["error"]
+
+    def test_password_rechazada_por_cognito_400(self, cuenta_sanidad):
+        cuenta_sanidad.admin_set_user_password.side_effect = _client_error("InvalidPasswordException")
+        assert handler.cambiar_username(_evento(), None)["statusCode"] == 400
+        assert [c.kwargs["Username"] for c in cuenta_sanidad.admin_delete_user.call_args_list] == ["sanidad.jefe"]
+
+    def test_error_inesperado_al_comprobar_si_existe_500(self, cuenta_sanidad):
+        def _get(UserPoolId, Username):
+            raise _client_error("InternalErrorException")
+
+        cuenta_sanidad.admin_get_user.side_effect = _get
+        assert handler.cambiar_username(_evento(), None)["statusCode"] == 500
+        cuenta_sanidad.admin_create_user.assert_not_called()

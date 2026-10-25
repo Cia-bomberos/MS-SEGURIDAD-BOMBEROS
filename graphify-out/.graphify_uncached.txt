@@ -1,0 +1,4 @@
+C:\Users\PC\Desktop\MS-SEGURIDAD-BOMBEROS\.github\workflows\deploy.yml
+C:\Users\PC\Desktop\MS-SEGURIDAD-BOMBEROS\README.md
+C:\Users\PC\Desktop\MS-SEGURIDAD-BOMBEROS\requirements-dev.txt
+C:\Users\PC\Desktop\MS-SEGURIDAD-BOMBEROS\serverless.yml
