@@ -32,6 +32,15 @@ Base URL (dev): `https://3fbn9ktlw8.execute-api.us-east-1.amazonaws.com/dev`
 |---|---|---|---|
 | GET | `/admin/cuentas` | Solo Jefatura | Lista las 4 cuentas compartidas administrables (Jefatura nunca aparece en la lista) |
 | PATCH | `/admin/cuentas/{id}/password` | Solo Jefatura | Cambia/restablece la contraseña de una cuenta compartida. Body: `{"nueva_password": "..."}` |
+| PATCH | `/admin/cuentas/{id}/username` | Solo Jefatura | Cambia el nombre de usuario de inicio de sesión de una cuenta compartida. Body: `{"nuevo_username": "...", "nueva_password": "..."}` |
+
+**Contraseñas:** mínimo 8 caracteres con mayúscula, minúscula y número (política del pool). Una contraseña que no la cumpla devuelve `400`.
+
+**Cambio de nombre de usuario.** En Cognito el `Username` de inicio de sesión no se puede modificar (cambiarlo exigiría reemplazar el pool y perder las cuentas), así que el endpoint **crea la cuenta nueva** (mismo `name`, `email` y grupo) con la contraseña indicada y **elimina la anterior**, en ese orden: si algo falla, la nueva se descarta y la anterior queda intacta. Consecuencias:
+- La contraseña es obligatoria (la anterior no se puede trasladar).
+- El `sub` de la cuenta cambia: el historial de la bandeja conserva el `sub` viejo, y quien deba haber descargado un documento antes de su envío externo (RN-0027) tendrá que volver a descargarlo.
+- El usuario viejo deja de funcionar; sus tokens ya emitidos caducan solos (15 min).
+- Formato: 3 a 30 caracteres, minúsculas, números, `.`, `-` y `_`. `409` si el nombre ya existe; `403` para la cuenta de Jefatura (RN-0043).
 
 Ambos endpoints requieren el header `Authorization: Bearer <IdToken>`. Un usuario que no sea Jefatura recibe `403`.
 
