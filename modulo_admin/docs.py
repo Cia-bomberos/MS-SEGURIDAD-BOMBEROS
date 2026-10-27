@@ -1,58 +1,32 @@
 import json
 import os
 
-def servir_docs(event, context):
-    """Devuelve la interfaz de Swagger UI."""
-    html = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>MS-SEGURIDAD-BOMBEROS - API Docs</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-        <style>
-            html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
-            *, *:before, *:after { box-sizing: inherit; }
-            body { margin:0; background: #fafafa; }
-        </style>
-    </head>
-    <body>
-        <div id="swagger-ui"></div>
-        <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
-        <script>
-            window.onload = () => {
-                window.ui = SwaggerUIBundle({
-                    url: './openapi.json',
-                    dom_id: '#swagger-ui',
-                    deepLinking: true,
-                    presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
-                    layout: "BaseLayout"
-                });
-            };
-        </script>
-    </body>
-    </html>
-    """
-    return {
-        "statusCode": 200,
-        "headers": {"Content-Type": "text/html"},
-        "body": html,
-    }
 
-def servir_openapi(event, context):
-    """Devuelve el archivo openapi.json."""
-    try:
-        # Asume que el archivo está en la raíz del proyecto empaquetado
-        with open("openapi.json", "r", encoding="utf-8") as f:
-            contenido = f.read()
+def servir_docs(event, context):
+    path = event.get("path", "")
+
+    if path.endswith("/docs"):
+        ruta_html = os.path.join(os.path.dirname(__file__), "..", "swagger-ui", "index.html")
+        with open(ruta_html, "r", encoding="utf-8") as f:
+            html = f.read()
+        return {
+            "statusCode": 200,
+            "headers": {"Content-Type": "text/html; charset=utf-8"},
+            "body": html,
+        }
+
+    if path.endswith("/openapi.json"):
+        ruta_json = os.path.join(os.path.dirname(__file__), "..", "swagger-ui", "openapi.json")
+        with open(ruta_json, "r", encoding="utf-8") as f:
+            spec = json.load(f)
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
-            "body": contenido,
+            "body": json.dumps(spec, ensure_ascii=False),
         }
-    except FileNotFoundError:
-        return {
-            "statusCode": 404,
-            "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({"error": "openapi.json no encontrado."}),
-        }
+
+    return {
+        "statusCode": 404,
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps({"error": "Ruta no encontrada."}),
+    }

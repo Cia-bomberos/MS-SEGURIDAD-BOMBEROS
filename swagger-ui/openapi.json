@@ -3,7 +3,7 @@
   "info": {
     "title": "MS-SEGURIDAD-BOMBEROS",
     "version": "1.0.0",
-    "description": "API de Administración de Cuentas Compartidas (Lambdas detrás de API Gateway). Solo accesible por Jefatura."
+    "description": "API de Administración de Cuentas Compartidas."
   },
   "servers": [
     {
@@ -20,7 +20,6 @@
       "get": {
         "operationId": "listarCuentas",
         "summary": "Lista las cuentas de las secciones",
-        "description": "Solo Jefatura puede ver estas cuentas.",
         "responses": {
           "200": {
             "description": "Lista de cuentas",
@@ -40,26 +39,33 @@
               }
             }
           },
-          "401": { "$ref": "#/components/responses/NoAutenticado" },
-          "403": { "$ref": "#/components/responses/SinPermiso" }
+          "401": {
+            "$ref": "#/components/responses/NoAutenticado"
+          },
+          "403": {
+            "$ref": "#/components/responses/SinPermiso"
+          }
         }
       }
     },
     "/admin/cuentas/{id}/password": {
       "parameters": [
-        { "$ref": "#/components/parameters/UsernameId" }
+        {
+          "$ref": "#/components/parameters/UsernameId"
+        }
       ],
       "patch": {
         "operationId": "cambiarPassword",
         "summary": "Cambia la contraseña de una cuenta",
-        "description": "No se puede modificar la cuenta de Jefatura.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["nueva_password"],
+                "required": [
+                  "nueva_password"
+                ],
                 "properties": {
                   "nueva_password": {
                     "type": "string",
@@ -78,34 +84,48 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "mensaje": { "type": "string" }
+                    "mensaje": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
           },
-          "400": { "$ref": "#/components/responses/SolicitudInvalida" },
-          "401": { "$ref": "#/components/responses/NoAutenticado" },
-          "403": { "$ref": "#/components/responses/SinPermiso" },
-          "404": { "$ref": "#/components/responses/NoEncontrado" }
+          "400": {
+            "$ref": "#/components/responses/SolicitudInvalida"
+          },
+          "401": {
+            "$ref": "#/components/responses/NoAutenticado"
+          },
+          "403": {
+            "$ref": "#/components/responses/SinPermiso"
+          },
+          "404": {
+            "$ref": "#/components/responses/NoEncontrado"
+          }
         }
       }
     },
     "/admin/cuentas/{id}/username": {
       "parameters": [
-        { "$ref": "#/components/parameters/UsernameId" }
+        {
+          "$ref": "#/components/parameters/UsernameId"
+        }
       ],
       "patch": {
         "operationId": "cambiarUsername",
         "summary": "Cambia el nombre de usuario de una cuenta",
-        "description": "Recrea la cuenta en Cognito. Requiere una nueva contraseña.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["nuevo_username", "nueva_password"],
+                "required": [
+                  "nuevo_username",
+                  "nueva_password"
+                ],
                 "properties": {
                   "nuevo_username": {
                     "type": "string",
@@ -128,19 +148,35 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "mensaje": { "type": "string" },
-                    "username_anterior": { "type": "string" },
-                    "username_nuevo": { "type": "string" }
+                    "mensaje": {
+                      "type": "string"
+                    },
+                    "username_anterior": {
+                      "type": "string"
+                    },
+                    "username_nuevo": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
           },
-          "400": { "$ref": "#/components/responses/SolicitudInvalida" },
-          "401": { "$ref": "#/components/responses/NoAutenticado" },
-          "403": { "$ref": "#/components/responses/SinPermiso" },
-          "404": { "$ref": "#/components/responses/NoEncontrado" },
-          "409": { "$ref": "#/components/responses/Conflicto" }
+          "400": {
+            "$ref": "#/components/responses/SolicitudInvalida"
+          },
+          "401": {
+            "$ref": "#/components/responses/NoAutenticado"
+          },
+          "403": {
+            "$ref": "#/components/responses/SinPermiso"
+          },
+          "404": {
+            "$ref": "#/components/responses/NoEncontrado"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflicto"
+          }
         }
       }
     }
@@ -170,7 +206,9 @@
         "description": "Solicitud inválida",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/Error" }
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
           }
         }
       },
@@ -178,7 +216,14 @@
         "description": "Token ausente o inválido",
         "content": {
           "application/json": {
-            "schema": { "type": "object", "properties": { "message": { "type": "string" } } }
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -186,7 +231,9 @@
         "description": "Sin permiso (no es Jefatura)",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/Error" }
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
           }
         }
       },
@@ -194,7 +241,9 @@
         "description": "Cuenta no encontrada",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/Error" }
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
           }
         }
       },
@@ -202,7 +251,9 @@
         "description": "El usuario ya existe",
         "content": {
           "application/json": {
-            "schema": { "$ref": "#/components/schemas/Error" }
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
           }
         }
       }
@@ -211,16 +262,26 @@
       "Error": {
         "type": "object",
         "properties": {
-          "error": { "type": "string" }
+          "error": {
+            "type": "string"
+          }
         }
       },
       "Cuenta": {
         "type": "object",
         "properties": {
-          "username": { "type": "string" },
-          "nombre": { "type": "string" },
-          "grupo": { "type": "string" },
-          "estado": { "type": "string" }
+          "username": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "grupo": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string"
+          }
         }
       }
     }

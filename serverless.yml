@@ -13,6 +13,12 @@ provider:
     role: 
       Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/LabRole
 
+package:
+  patterns:
+    - '!venv/**'
+    - '!tests/**'
+    - 'swagger-ui/**'   # <-- IMPORTANTE: Incluye la carpeta de Swagger
+
 functions:
   listarCuentas:
     handler: modulo_admin/handler.listar_cuentas
@@ -61,10 +67,6 @@ functions:
           path: docs
           method: get
           cors: true
-
-  openapi:
-    handler: modulo_admin/docs.servir_openapi
-    events:
       - http:
           path: openapi.json
           method: get
