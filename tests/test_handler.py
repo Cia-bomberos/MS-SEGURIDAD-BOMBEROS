@@ -372,7 +372,8 @@ class TestCambiarUsername:
         cuenta_sanidad.admin_create_user.side_effect = _client_error("InternalErrorException", "original")
         cuenta_sanidad.admin_delete_user.side_effect = _client_error("InternalErrorException", "secundario")
         r = handler.cambiar_username(_evento(), None)
-        assert r["statusCode"] == 500 and "original" in json.loads(r["body"])["error"]
+        assert r["statusCode"] == 500
+        assert "original" in json.loads(r["body"])["error"]
 
     def test_password_rechazada_por_cognito_400(self, cuenta_sanidad):
         cuenta_sanidad.admin_set_user_password.side_effect = _client_error("InvalidPasswordException")
