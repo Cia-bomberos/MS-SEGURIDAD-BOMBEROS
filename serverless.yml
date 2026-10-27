@@ -13,6 +13,12 @@ provider:
     role: 
       Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/LabRole
 
+package:
+  patterns:
+    - '!venv/**'
+    - '!tests/**'
+    - 'swagger-ui/**'   # <-- IMPORTANTE: Incluye la carpeta de Swagger
+
 functions:
   listarCuentas:
     handler: modulo_admin/handler.listar_cuentas
@@ -39,6 +45,32 @@ functions:
           authorizer:
             type: COGNITO_USER_POOLS
             authorizerId: !Ref ApiGatewayAuthorizer
+
+  cambiarUsername:
+    handler: modulo_admin/handler.cambiar_username
+    environment:
+      USER_POOL_ID: !Ref CognitoUserPool
+    events:
+      - http:
+          path: admin/cuentas/{id}/username
+          method: patch
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId: !Ref ApiGatewayAuthorizer
+
+  # --- Documentación (Swagger) ---
+  docs:
+    handler: modulo_admin/docs.servir_docs
+    events:
+      - http:
+          path: docs
+          method: get
+          cors: true
+      - http:
+          path: openapi.json
+          method: get
+          cors: true
 
 resources:
   Resources:

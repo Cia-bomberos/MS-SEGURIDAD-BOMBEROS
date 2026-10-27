@@ -1,0 +1,1193 @@
+{
+  "nodes": [
+    {
+      "id": "conftest",
+      "label": "conftest.py",
+      "file_type": "code",
+      "source_file": "conftest.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler",
+      "label": "handler.py",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_rol_desde_token",
+      "label": "_rol_desde_token()",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L31",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_respuesta",
+      "label": "_respuesta()",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L39",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_es_jefatura",
+      "label": "_es_jefatura()",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L47",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_listar_cuentas",
+      "label": "listar_cuentas()",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L53",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_cambiar_password",
+      "label": "cambiar_password()",
+      "file_type": "code",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L79",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_rationale_1",
+      "label": "Modulo Admin - Gestion de contrasenas de cuentas compartidas. Cumple RN-0042 y…",
+      "file_type": "rationale",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_rationale_32",
+      "label": "Extrae el grupo de Cognito del usuario autenticado (via API Gateway authorizer).",
+      "file_type": "rationale",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_rationale_54",
+      "label": "GET /admin/cuentas - solo Jefatura.",
+      "file_type": "rationale",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L54",
+      "_origin": "ast"
+    },
+    {
+      "id": "modulo_admin_handler_rationale_80",
+      "label": "PATCH /admin/cuentas/{id}/password - solo Jefatura.",
+      "file_type": "rationale",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L80",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_seed_users",
+      "label": "seed_users.py",
+      "file_type": "code",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_seed_users_crear_usuario",
+      "label": "crear_usuario()",
+      "file_type": "code",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_seed_users_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L90",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_seed_users_rationale_1",
+      "label": "Script para crear las 5 cuentas fijas de la Compania de Bomberos N3 en Cognito.…",
+      "file_type": "rationale",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler",
+      "label": "test_handler.py",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_event",
+      "label": "_event()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L21",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_client_error",
+      "label": "_client_error()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L35",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "fixture",
+      "label": "fixture",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_cognito_mock",
+      "label": "cognito_mock()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L40",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testhelpers",
+      "label": "TestHelpers",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L51",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testhelpers_test_es_jefatura_true",
+      "label": ".test_es_jefatura_true()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L52",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testhelpers_test_es_jefatura_false",
+      "label": ".test_es_jefatura_false()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L56",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testhelpers_test_rol_desde_token_devuelve_primer_grupo",
+      "label": ".test_rol_desde_token_devuelve_primer_grupo()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L60",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testhelpers_test_rol_desde_token_sin_grupos_devuelve_string_vacio",
+      "label": ".test_rol_desde_token_sin_grupos_devuelve_string_vacio()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L64",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testlistarcuentas",
+      "label": "TestListarCuentas",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L75",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testlistarcuentas_test_rechaza_si_no_es_jefatura",
+      "label": ".test_rechaza_si_no_es_jefatura()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L76",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testlistarcuentas_test_lista_cuentas_de_los_4_grupos_administrables",
+      "label": ".test_lista_cuentas_de_los_4_grupos_administrables()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L84",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testlistarcuentas_test_no_incluye_a_jefatura_en_la_lista",
+      "label": ".test_no_incluye_a_jefatura_en_la_lista()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L109",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testlistarcuentas_test_error_de_cognito_devuelve_500",
+      "label": ".test_error_de_cognito_devuelve_500()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L121",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword",
+      "label": "TestCambiarPassword",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L134",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_rechaza_si_no_es_jefatura",
+      "label": ".test_rechaza_si_no_es_jefatura()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L135",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_password_faltante",
+      "label": ".test_password_faltante()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L147",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_password_muy_corta",
+      "label": ".test_password_muy_corta()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L154",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_usuario_no_encontrado_devuelve_404",
+      "label": ".test_usuario_no_encontrado_devuelve_404()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L163",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_no_permite_modificar_a_jefatura_rn0043",
+      "label": ".test_no_permite_modificar_a_jefatura_rn0043()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L176",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_rechaza_cuenta_de_grupo_no_administrable",
+      "label": ".test_rechaza_cuenta_de_grupo_no_administrable()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L189",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_cambia_password_exitosamente",
+      "label": ".test_cambia_password_exitosamente()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L202",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_testcambiarpassword_test_error_al_actualizar_password_devuelve_500",
+      "label": ".test_error_al_actualizar_password_devuelve_500()",
+      "file_type": "code",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L220",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_rationale_1",
+      "label": "Unit tests para modulo_admin/handler.py (RN-0042, RN-0043). Todas las llamadas…",
+      "file_type": "rationale",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_rationale_22",
+      "label": "Arma un event de API Gateway con el shape que espera el handler.",
+      "file_type": "rationale",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_handler_rationale_41",
+      "label": "Reemplaza el cliente boto3 de Cognito del handler por un MagicMock.",
+      "file_type": "rationale",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L41",
+      "_origin": "ast"
+    }
+  ],
+  "edges": [
+    {
+      "source": "conftest",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "conftest.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "json",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "boto3",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "botocore_exceptions",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "modulo_admin_handler_rol_desde_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "modulo_admin_handler_respuesta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "modulo_admin_handler_es_jefatura",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "modulo_admin_handler_listar_cuentas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler",
+      "target": "modulo_admin_handler_cambiar_password",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_listar_cuentas",
+      "target": "modulo_admin_handler_es_jefatura",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_listar_cuentas",
+      "target": "modulo_admin_handler_respuesta",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_cambiar_password",
+      "target": "modulo_admin_handler_es_jefatura",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_cambiar_password",
+      "target": "modulo_admin_handler_respuesta",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_rationale_1",
+      "target": "modulo_admin_handler",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_rationale_32",
+      "target": "modulo_admin_handler_rol_desde_token",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_rationale_54",
+      "target": "modulo_admin_handler_listar_cuentas",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "modulo_admin_handler_rationale_80",
+      "target": "modulo_admin_handler_cambiar_password",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "modulo_admin/handler.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "argparse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "boto3",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "botocore_exceptions",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "scripts_seed_users_crear_usuario",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users",
+      "target": "scripts_seed_users_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users_main",
+      "target": "scripts_seed_users_crear_usuario",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_seed_users_rationale_1",
+      "target": "scripts_seed_users",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed_users.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "json",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "unittest_mock",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "pytest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "botocore_exceptions",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "modulo_admin",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_event",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_client_error",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_cognito_mock",
+      "target": "fixture",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_cognito_mock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_testhelpers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers",
+      "target": "tests_test_handler_testhelpers_test_es_jefatura_true",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers",
+      "target": "tests_test_handler_testhelpers_test_es_jefatura_false",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers",
+      "target": "tests_test_handler_testhelpers_test_rol_desde_token_devuelve_primer_grupo",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers",
+      "target": "tests_test_handler_testhelpers_test_rol_desde_token_sin_grupos_devuelve_string_vacio",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_testlistarcuentas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas",
+      "target": "tests_test_handler_testlistarcuentas_test_rechaza_si_no_es_jefatura",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas",
+      "target": "tests_test_handler_testlistarcuentas_test_lista_cuentas_de_los_4_grupos_administrables",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas",
+      "target": "tests_test_handler_testlistarcuentas_test_no_incluye_a_jefatura_en_la_lista",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas",
+      "target": "tests_test_handler_testlistarcuentas_test_error_de_cognito_devuelve_500",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L121",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "tests_test_handler_testcambiarpassword",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L134",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_rechaza_si_no_es_jefatura",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L135",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_password_faltante",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_password_muy_corta",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L154",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_usuario_no_encontrado_devuelve_404",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L163",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_no_permite_modificar_a_jefatura_rn0043",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L176",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_rechaza_cuenta_de_grupo_no_administrable",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L189",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_cambia_password_exitosamente",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L202",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword",
+      "target": "tests_test_handler_testcambiarpassword_test_error_al_actualizar_password_devuelve_500",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers_test_es_jefatura_true",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers_test_es_jefatura_false",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers_test_rol_desde_token_devuelve_primer_grupo",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testhelpers_test_rol_desde_token_sin_grupos_devuelve_string_vacio",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas_test_rechaza_si_no_es_jefatura",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas_test_lista_cuentas_de_los_4_grupos_administrables",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas_test_no_incluye_a_jefatura_en_la_lista",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas_test_error_de_cognito_devuelve_500",
+      "target": "tests_test_handler_client_error",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L122",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testlistarcuentas_test_error_de_cognito_devuelve_500",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_rechaza_si_no_es_jefatura",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_password_faltante",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_password_muy_corta",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_usuario_no_encontrado_devuelve_404",
+      "target": "tests_test_handler_client_error",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L164",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_usuario_no_encontrado_devuelve_404",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_no_permite_modificar_a_jefatura_rn0043",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L180",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_rechaza_cuenta_de_grupo_no_administrable",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_cambia_password_exitosamente",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L206",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_error_al_actualizar_password_devuelve_500",
+      "target": "tests_test_handler_client_error",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L224",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_testcambiarpassword_test_error_al_actualizar_password_devuelve_500",
+      "target": "tests_test_handler_event",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L225",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_rationale_1",
+      "target": "tests_test_handler",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_rationale_22",
+      "target": "tests_test_handler_event",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler_rationale_41",
+      "target": "tests_test_handler_cognito_mock",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_handler",
+      "target": "modulo_admin_handler",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_handler.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "failed_sources": [],
+  "extracted_sources": [
+    "C:\\Users\\PC\\Desktop\\MS-SEGURIDAD-BOMBEROS\\conftest.py",
+    "C:\\Users\\PC\\Desktop\\MS-SEGURIDAD-BOMBEROS\\modulo_admin\\handler.py",
+    "C:\\Users\\PC\\Desktop\\MS-SEGURIDAD-BOMBEROS\\scripts\\seed_users.py",
+    "C:\\Users\\PC\\Desktop\\MS-SEGURIDAD-BOMBEROS\\tests\\test_handler.py"
+  ]
+}
