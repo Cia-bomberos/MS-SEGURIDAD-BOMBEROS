@@ -53,6 +53,23 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId: !Ref ApiGatewayAuthorizer
 
+  # --- Documentación (Swagger) ---
+  docs:
+    handler: modulo_admin/docs.servir_docs
+    events:
+      - http:
+          path: docs
+          method: get
+          cors: true
+
+  openapi:
+    handler: modulo_admin/docs.servir_openapi
+    events:
+      - http:
+          path: openapi.json
+          method: get
+          cors: true
+
 resources:
   Resources:
 
